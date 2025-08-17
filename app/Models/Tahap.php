@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tahap extends Model
+class Tahap extends Model
 {
     function monitorings()
     {
