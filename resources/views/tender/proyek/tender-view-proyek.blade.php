@@ -1,12 +1,9 @@
 @extends('layout.main')
 @section('content')
-    <div class="az-content-label">view detail proyek</div>
+    <div class="az-content-label">view detail proyek Tender</div>
     <p class="mg-b-20">Berikut adalah detail proyek yang telah Anda pilih.</p>
 
-    
-    @if ($proyek->monitorings && count(value: $proyek->monitorings) > 0)
-        <a href="{{ route('add-monitoring', $proyek->id) }}" class="btn btn-primary mb-4" style="border-radius: 5px"><i class="typcn typcn-folder-add mr-2"></i>Tambah Monitoring</a>                    
-    @endif
+
     <div class="card mb-5" style="border-radius: 15px;">
         <div class="card-header">
             <div class="row mt-3 mb-3">
@@ -54,12 +51,12 @@
                     <div class="col-md-6 d-flex align-items-center">
                     
                         @if ($proyek->monitorings && count(value: $proyek->monitorings) > 0)
-                            <a href="{{ route('proyek-monitoring-pengawas', $proyek->id) }}" style="border-radius: 5px" class="btn btn-success">
+                            <a href="{{ route('proyek-monitoring-tender', $proyek->id) }}" style="border-radius: 5px" class="btn btn-success">
                                 <i class="typcn typcn-eye mr-2"></i>Laporan
                             </a>
                         @else
                         <p class="text-muted mb-0">Tidak ada laporan untuk proyek ini.</p>
-                            <a href="{{ route('add-monitoring', $proyek->id) }}" style="border-radius: 5px" class="btn btn-indigo btn-icon m-1 mr-3"><i class="typcn typcn-document-add"></i></a>
+                            
                         @endif
                     </div>
                 </div>

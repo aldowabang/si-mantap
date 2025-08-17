@@ -17,6 +17,10 @@ return new class extends Migration
                 'proyeks',
                 indexName: 'fk_monitorings_proyeks'
             )->onDelete('cascade');
+            $table->foreignId('tahap_id')->constrained(
+                'tahaps',
+                indexName: 'fk_monitoringtahaps_tahaps'
+            )->onDelete('cascade'); // Ensure cascading delete
             $table->string('nama_monitoring');
             $table->string('deskripsi_monitoring')->nullable();
             $table->date('tanggal_monitoring')->nullable();

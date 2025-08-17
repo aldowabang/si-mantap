@@ -35,8 +35,7 @@
                                                         <form action="{{ route('admin-delete-proyek', $row->id) }}" method="POST" class="form-hapus-proyek" style="display:inline;">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger btn-sm"  style="border-radius: 5px;"
-                                                        style="border-radius: 10px;">
+                                                                        <button type="submit" class="btn btn-danger btn-sm"  style="border-radius: 5px;" style="border-radius: 10px;">
                                                                                         <i class="typcn typcn-trash"></i> Hapus
                                                                         </button>
                                                         </form>

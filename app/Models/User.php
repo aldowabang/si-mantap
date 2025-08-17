@@ -32,6 +32,13 @@ class User extends Authenticatable
         return $this->hasMany(Proyek::class, 'user_id');
     }
 
+    // Satu proyek punya satu user pemengang yang mengelola proyek ini
+
+    public function pemegang()
+    {
+        return $this->hasMany(Proyek::class, 'user_id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

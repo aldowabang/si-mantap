@@ -28,4 +28,9 @@ public function dokuments()
     return $this->hasMany(Dokument::class, 'monitoring_id');
 }
 
+public function tahap()
+{
+    return $this->belongsTo(Tahap::class, 'tahap_id');
+}
+
 }

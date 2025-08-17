@@ -30,4 +30,10 @@ class Proyek extends Model
         return $this->hasMany(Tahap::class, 'proyek_id');
     }
 
+    // Satu proyek punya satu user pemengang yang mengelola proyek ini
+    public function pemegang()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

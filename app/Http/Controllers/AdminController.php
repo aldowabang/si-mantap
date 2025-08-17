@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Dom\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User; // Assuming you have a User model
-use App\Models\Proyek; // Assuming you have a Proyek model
-use App\Models\Monitoring; // Assuming you have a Monitoring model
 use App\Models\Tahap; // Assuming you have a Tahap model
+use App\Models\Proyek; // Assuming you have a Proyek model
 use App\Models\Dokument; // Assuming you have a Dokument model
-
-
+use App\Models\Monitoring; // Assuming you have a Monitoring model
 
 class AdminController extends Controller
 {
@@ -80,6 +80,8 @@ class AdminController extends Controller
                     ->subject('Akun Anda Sudah Aktif');
             });
         }
+        $user->username = $user->email;
+        $user->password = bcrypt($user->whatsapp); // Set password to WhatsApp number
 
         $user->save();
 
@@ -176,10 +178,9 @@ class AdminController extends Controller
         $this->sendWhatsAppNotificationadd($user);
         // Kirim email notifikasi
         $message = "Akun Anda telah dibuat.\n\n" .
-                "Username: {$user->email}\n" .
-                "Password: {$user->whatsapp}\n\n" .
                 "Role: {$user->role}\n\n" .
                 "Hubungi Admin untuk mengaktifkan akun Anda.\n" .
+                "Dan Dapatkan Username dan Password Anda.\n\n" .
                 "Silakan gunakan untuk login ke sistem.";
         Mail::raw($message, function ($mail) use ($user) {
             $mail->to($user->email)
@@ -280,7 +281,7 @@ class AdminController extends Controller
             'title' => 'Add Proyek',
             'description' => 'Halaman Tambah Proyek',
             'users' => User::where('role', 'pengawas')->get(), // Assuming you want to show only pengawas users
-            
+            'tenders' => User::where('role', 'tender')->get(), // Assuming you want to show only tender users            
         ];
         return view('admin.proyek.add-proyek', $data);
     }
@@ -295,6 +296,7 @@ class AdminController extends Controller
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'file_path' => 'required|file|mimes:pdf|max:2048',
             'user_id' => 'required|exists:users,id',
+            'tender_id' => 'required|exists:users,id', // Assuming tender_id is a foreign key to users table
         ], [
             'nameProyek.required' => 'Nama Proyek harus diisi.',
             'lokasi.required' => 'Lokasi harus diisi.',
@@ -308,6 +310,7 @@ class AdminController extends Controller
 
         $proyek = new Proyek();
         $proyek->user_id = $request->input('user_id');
+        $proyek->tender_id = $request->input('tender_id'); // Assuming tender_id is a foreign key to users table
         $proyek->nameProyek = $request->input('nameProyek');
         $proyek->lokasi = $request->input('lokasi');
         $proyek->jenis = $request->input('jenis');
@@ -329,7 +332,7 @@ class AdminController extends Controller
         // Tambah tahapan default secara efisien
         Tahap::create([
             'proyek_id' => $proyek->id,
-            'namaTahap' => 'Tahap 1 - ' . $proyek->nameProyek,
+            'namaTahap' => 'Tahap 1',
             'statusTahap' => 'non-approval',
         ]);
         return redirect()->route('admin-proyek')->with('success', 'Proyek created successfully.');
@@ -398,12 +401,14 @@ class AdminController extends Controller
     public function proyekMonitotingAdmin($id)
     {
         $proyek = Proyek::findOrFail($id);
+        $pengawas = User::find($proyek->user_id);
         $data = [
             'title' => 'Monitoring Proyek',
             'description' => 'Halaman Monitoring Proyek',
             'proyek' => $proyek,
             'monitorings' => Monitoring::where('proyek_id', $id)->get(),
             'tahaps' => Tahap::where('proyek_id', $id)->get(),
+            'pengawas_proyek' => $pengawas,
 
         ];
         return view('admin.proyek.monitoring-admin', $data);
@@ -411,16 +416,134 @@ class AdminController extends Controller
 
     public function cekdoc($id)
     {
+        $proyek = Monitoring::findOrFail($id)->proyek;
+        $pengawas = User::find($proyek->user_id);
         $monitoring = Monitoring::findOrFail($id);
         $data = [
             'title' => 'Cek Dokumen Monitoring',
             'description' => 'Halaman Cek Dokumen Monitoring',
             'monitoring' => $monitoring,
             'dokumentsss' => Dokument::where('monitoring_id', $id)->get(),
+            'pengawas_proyekkk' => $pengawas,
         ];
         return view('admin.proyek.cek-dokumen', $data);
     }
 
+    public function konfirmasiDokumentAdmin(Request $request, $id)
+    {
+        $document = Dokument::findOrFail($id);
+        $document->status_dokument = 'approved';
+        $document->save();
+        return redirect()->back()->with('success', 'Dokument berhasil dikonfirmasi.');
+    }
 
+
+
+
+    public function rejectedDokumentAdmin(Request $request, $id)
+    {
+        // @dd($request->all());
+        $request->validate([
+            'catatan' => 'required|string|max:255',
+            'monitoring_id' => 'required|exists:monitorings,id',
+            'wa' => 'required|string|max:15',
+            'n' => 'required|string|max:50',
+        ], [
+            'catatan.required' => 'Catatan penolakan harus diisi.',
+            'monitoring_id.required' => 'Monitoring ID harus diisi.',
+            'wa.required' => 'Nomor WhatsApp harus diisi.',
+            'n.required' => 'Nama harus diisi.',
+        ]);
+
+        $document = Dokument::findOrFail($id);
+        $document->status_dokument = 'rejected';
+        $document->catatan = $request->input('catatan');
+        $document->monitoring_id = $request->input('monitoring_id');
+        $document->save();
+        // Send WhatsApp notification
+        $wa = $request->input('wa');
+        $n = $request->input('n');
+        $this->sendWhatsAppNotificationRejectedDocument($document, $wa, $n);
+
+        return redirect()->back()->with('success', 'Dokument berhasil ditolak.');
+
+        
+    }
+
+    private function sendWhatsAppNotificationRejectedDocument($document, $wa, $n)
+    {
+        $apiKey = env('FONNTE_API_KEY');
+        $message ="Hallo : {$n}\n" .
+                "Dokumen Anda telah ditolak.\n\n" .
+                "Dokument yang maksud adalah:\n" .
+                "ID Dokument: {$document->id}\n" .
+                "Nama Dokument: {$document->namaDokumen}.\n" .
+                "Catatan: {$document->catatan}\n\n" .
+                "Silakan perbaiki dan kirim ulang dokumen Anda.";
+
+        // Kirim pesan WhatsApp
+        $response = Http::withHeaders([
+            'Authorization' => $apiKey,
+            'Content-Type' => 'application/json',
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $wa, 
+            'message' => $message,
+            'countryCode' => "62",
+        ]);
+    }
+
+    public function konfirmasiTahapAdmin(Request $request, $id)
+    {
+        $request->validate([
+            'tahap_id' => 'required|exists:tahaps,id',
+            'whatsapp' => 'required|string|max:15',
+        ], [
+            'tahap_id.required' => 'Tahap ID harus diisi.',
+            'whatsapp.required' => 'Nomor WhatsApp harus diisi.',
+        ]);
+        
+        // Update tahap status to approval-admin
+        $wa = $request->input('whatsapp');
+        $tahap = Tahap::findOrFail($id);
+        $tahap->statusTahap = 'approval-admin';
+        $tahap->save();
+        
+        // Kirim notifikasi WhatsApp
+        $this->sendWhatsAppNotificationTahapAdmin($tahap, $wa);
+
+        return redirect()->back()->with('success', 'Tahap berhasil dikonfirmasi.');
+    }
+
+    private function sendWhatsAppNotificationTahapAdmin($tahap, $wa)
+    {
+        $apiKey = env('FONNTE_API_KEY');
+        $message = "Tahap proyek Anda telah dikonfirmasi oleh admin.\n\n" .
+                "ID Tahap: {$tahap->id}\n" .
+                "Nama Tahap: {$tahap->namaTahap}\n" .
+                "Status Tahap: {$tahap->statusTahap}\n\n" .
+                "Silakan lanjutkan ke tahap berikutnya.";
+
+        // Kirim pesan WhatsApp
+        $response = Http::withHeaders([
+            'Authorization' => $apiKey,
+            'Content-Type' => 'application/json',
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $wa, 
+            'message' => $message,
+            'countryCode' => "62",
+        ]);
+    }
+
+    public function profile()
+    {
+        $user = Auth::user(); // Get the authenticated user
+        $data = [
+            'title' => 'Profile Admin',
+            'description' => 'Halaman Profile Admin',
+            'user' => $user,
+        ];
+        return view('admin.profile', $data);
+    }
+    
 
 }

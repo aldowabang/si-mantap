@@ -17,6 +17,10 @@ return new class extends Migration
                 'users',
                 indexName: 'fk_proyeks_users' // Optional: specify index name
             );
+            $table->foreignid('tender_id')->constrained(
+                'users',
+                indexName: 'fk_proyeks_tenders' // Optional: specify index name
+            );
             $table->string('nameProyek');
             $table->string('lokasi');
             $table->string('jenis');

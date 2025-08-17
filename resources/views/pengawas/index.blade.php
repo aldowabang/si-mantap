@@ -24,14 +24,6 @@
                 <h6>{{ now()->timezone(config('app.timezone'))->getTimezone()->getName() }}</h6>
             </div><!-- media-body -->
         </div><!-- media -->
-        <div class="media">
-            <div class="media-body">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                </form>
-            </div>
-        </div>
     </div>
 </div><!-- az-dashboard-one-title -->
 @endsection

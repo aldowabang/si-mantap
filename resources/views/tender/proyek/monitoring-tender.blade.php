@@ -1,10 +1,8 @@
 @extends('layout.main')
 @section('content')
-    <div class="az-content-label">Monitoring Proyek</div>
+    <div class="az-content-label">Monitoring Proyek Tender</div>
     <p class="mg-b-20">Berikut adalah daftar monitoring proyek yang telah Anda pilih.</p>
-    <a href="{{ route('add-monitoring', $proyek->id) }}" class="btn btn-primary mb-4" style="border-radius: 5px"><i class="typcn typcn-folder-add mr-2"></i>Tambah Monitoring</a>
-    <a href="{{ route('add-tahap', $proyek->id) }}" class="btn btn-secondary mb-4" style="border-radius: 5px"><i class="typcn typcn-plus mr-2"></i>Tambah Tahap</a>
-    <div class="card" style="border-radius: 15px;">
+        <div class="card" style="border-radius: 15px;">
         <div class="card-header">
             <div class="row mt-3 mb-3">
                 <div class="col-md-6">
@@ -40,20 +38,18 @@
                             <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#tahap-{{ $tahap->id }}" aria-expanded="false" aria-controls="tahap-{{ $tahap->id }}" style="border-radius: 5px">
                                 {{ $tahap->namaTahap }}
                             </button>
-                            <form action="{{ route('konfirmasi-tahap-pengawas', $tahap->id) }}" method="POST" class="d-inline form-konfirmasi-tahap m-1">
+                            <div class="d-inline form-konfirmasi-tahap m-1">
                                 @csrf
                                 <input type="hidden" name="tahap_id" value="{{ $tahap->id }}">
                                 @if($tahap->statusTahap === 'non-approval')
-                                    <button class="btn btn-warning btn-sm btn-icon" type="submit" style="border-radius: 5px"><i class="typcn typcn-lock-closed"></i></button>
+                                    <button class="btn btn-warning btn-sm btn-icon" type="buttom" disabled style="border-radius: 5px"><i class="typcn typcn-lock-closed"></i></button>
                                 @elseif($tahap->statusTahap === 'approval-pengawas')
                                     <button class="btn btn-secondary btn-sm btn-icon" type="button" disabled style="border-radius: 5px"><i class="typcn typcn-lock-closed"></i></button>
+                                @elseif($tahap->statusTahap === 'approval-admin')
+                                    <button class="btn btn-info btn-sm btn-icon" type="button" disabled style="border-radius: 5px"><i class="typcn typcn-printer"></i></button>
                                 @endif
                                 
-                            </form>
-                            @if($tahap->statusTahap === 'approval-admin')
-                                    <a href="{{ route('laporan-pdf-pengawas', $proyek->id) }}" class="btn btn-info btn-sm btn-icon" style="border-radius: 5px"><i class="typcn typcn-printer"></i></a>
-                                    <a href="{{ route('laporan-pdf-pengawas', $tahap->id) }}" class="btn btn-info btn-sm btn-icon" style="border-radius: 5px"><i class="typcn typcn-pdf"></i></a>
-                            @endif
+                            </div>
                             @if($tahap->statusTahap === 'approval-pengawas')
                                 <strong class="text-success">{{ $tahap->statusTahap }}</strong>
                             @elseif($tahap->statusTahap === 'non-approval')
@@ -81,26 +77,9 @@
                                                 <td>{{ $monitoring->deskripsi_monitoring }}</td>
                                                 <td>
                                                     <div class="btn-icon-list d-flex flex-wrap justify-content-center">
-                                                        <a href="{{ route('cek-dokument-pengawas', $monitoring->id) }}" class="btn btn-indigo btn-icon m-1" style="border-radius: 5px;">
+                                                        <a href="{{ route('cek-doc-tender', $monitoring->id) }}" class="btn btn-indigo btn-icon m-1" style="border-radius: 5px;">
                                                             <i class="typcn typcn-document"></i>
                                                         </a>
-                                                        {{-- @if($dokuments = App\Models\Dokument::where('status_dokumet' !== 'approval'))
-                                                            <i class="typcn typcn-tick" style="color: chartreuse"></i>
-                                                        @else
-                                                            <i class="typcn typcn-info" style="color: rgb(221, 255, 0)"></i>
-                                                        @endif
-                                                         --}}
-
-                                                        
-                                                        @if($monitoring->status_monitoring === 'non-approval')
-                                                            <form action="{{ route('konfirmasi-dokument', $monitoring->id) }}" method="POST" class="form-konfirmasi-dokument m-1">
-                                                                @csrf
-                                                                <input type="hidden" name="monitoring_id" value="{{ $monitoring->id }}">
-                                                                <button type="submit" class="btn btn-success btn-icon" style="border-radius: 5px;">
-                                                                    <i class="typcn typcn-tick"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
