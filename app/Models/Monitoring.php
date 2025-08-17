@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class monitoring extends Model
+class Monitoring extends Model
 {
     /** @use HasFactory<\Database\Factories\MonitoringFactory> */
     use HasFactory;

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dokument extends Model
+class Dokument extends Model
 {
 public function monitoring()
 {
