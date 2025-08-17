@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class tahap extends Model
 {
-    public function monitorings()
+    function monitorings()
     {
-        return $this->hasMany(Monitoring::class);
+        // Satu tahap dapat memiliki banyak monitoring
+        return $this->hasMany(Monitoring::class, 'tahap_id');
     }
 
     public function dokuments()

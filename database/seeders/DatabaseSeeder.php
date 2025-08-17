@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
 
         Proyek::factory()->create([
             'user_id' => 1, // Assuming the first user is the owner of this project
+            'tender_id' => 3, // Assuming this project is associated with a tender
             'nameProyek' => 'Proyek A',
             'lokasi' => 'Lokasi A',
             'jenis' => 'Jenis A',
@@ -60,6 +61,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Proyek::factory()->create([
             'user_id' => 2, // Assuming this project is not owned by any user
+            'tender_id' => 3, // Assuming this project is associated with a tender
             'nameProyek' => 'Proyek B',
             'lokasi' => 'Lokasi B',
             'jenis' => 'Jenis B',

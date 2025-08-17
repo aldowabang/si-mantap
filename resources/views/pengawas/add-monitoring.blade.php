@@ -23,13 +23,13 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-      
+        
         <div class="form-group">
             <label for="tahap_monitoring">Tahap</label>
             <select class="form-control @error('tahap_monitoring') is-invalid @enderror" id="tahap_monitoring" name="tahap_monitoring">
             <option value="">-- Pilih Tahap --</option>
             @foreach($tahaps as $tahap)
-                @if($tahap->proyek_id == $proyek_id && $tahap->statusTahap !== 'approval')
+                @if($tahap->proyek_id == $proyek_id && $tahap->statusTahap === 'non-approval')
                 <option value="{{ $tahap->id }}" {{ old('tahap_monitoring') == $tahap->id ? 'selected' : '' }}>
                     {{ $tahap->namaTahap }}
                 </option>

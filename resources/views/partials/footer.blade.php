@@ -275,6 +275,119 @@
                     });
                 });
             });
+            document.addEventListener("DOMContentLoaded", function () {
+                const forms = document.querySelectorAll(".form-hapus-dokument");
+                forms.forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault(); // Cegah submit langsung
+                        Swal.fire({
+                            title: 'Yakin ingin menghapus?',
+                            text: "Data yang dihapus tidak dapat dikembalikan!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Submit form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                const forms = document.querySelectorAll(".form-konfirmasi-dokument");
+                forms.forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault(); // Cegah submit langsung
+                        Swal.fire({
+                            title: 'Yakin ingin Mengkonfirmasi?',
+                            text: "Data Akan dikonfirmasi, Pastikan Semua Laporan Yang Anda Masukan Telah Sesuai!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#28a745', // warna hijau
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, Konfirmasi!',           
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Submit form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const forms = document.querySelectorAll(".form-konfirmasi-tahap");
+                forms.forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault(); // Cegah submit langsung
+                        Swal.fire({
+                            title: 'Yakin ingin Mengkonfirmasi Tahap ini?',
+                            text: "Data Akan dikonfirmasi, Pastikan Semua Laporan Yang Anda Masukan Telah Sesuai!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#28a745', // warna hijau
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, Konfirmasi!',           
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Submit form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const forms = document.querySelectorAll(".konfirmasi-dokument-admin");
+                forms.forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault(); // Cegah submit langsung
+                        Swal.fire({
+                            title: 'Yakin ingin Mengkonfirmasi?',
+                            text: "Data Akan dikonfirmasi, Pastikan Semua Laporan Yang Anda Masukan Telah Sesuai!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#28a745', // warna hijau
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, Konfirmasi!',           
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Submit form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const forms = document.querySelectorAll(".logout-form");
+                forms.forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault(); // Cegah submit langsung
+                        Swal.fire({
+                            title: 'Yakin ingin keluar?',
+                            text: "Anda akan keluar dari akun ini!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, Keluar!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Submit form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            });
         </script>
 
     </body>

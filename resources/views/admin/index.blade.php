@@ -24,14 +24,6 @@
                 <h6>{{ now()->timezone(config('app.timezone'))->getTimezone()->getName() }}</h6>
             </div><!-- media-body -->
         </div><!-- media -->
-        <div class="media">
-            <div class="media-body">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                </form>
-            </div>
-        </div>
     </div>
 </div><!-- az-dashboard-one-title -->
 <div class="az-content-body">
@@ -40,7 +32,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body d-flex align-items-center">
-                    <div class="me-3 text-primary fs-1">
+                    <div class="me-3 text-primary fs-1 btn-icon">
                         <i class="typcn typcn-chart-bar-outline"></i>
                     </div>
                     <div>
@@ -55,7 +47,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body d-flex align-items-center">
-                    <div class="me-3 text-success fs-1">
+                    <div class="me-3 text-success fs-1 btn-icon">
                         <i class="typcn typcn-user"></i>
                     </div>
                     <div>
@@ -70,7 +62,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body d-flex align-items-center">
-                    <div class="me-3 text-warning fs-1">
+                    <div class="me-3 text-warning fs-1 btn-icon">
                         <i class="typcn typcn-chart-bar-outline"></i>
                     </div>
                     <div>
@@ -85,7 +77,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body d-flex align-items-center">
-                    <div class="me-3 text-info fs-1">
+                    <div class="me-3 text-info fs-1 btn-icon">
                         <i class="typcn typcn-user-add"></i>
                     </div>
                     <div>

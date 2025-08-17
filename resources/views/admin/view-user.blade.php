@@ -72,6 +72,12 @@
                         </div>
                 @else
                     <p class="text-danger">File tidak tersedia.</p>
+                    @if($user->status !== 'active')
+                            <form action="{{ route('admin-users-activate', $user->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm">Aktifkan User</button>
+                            </form>
+                    @endif
                 @endif
             </div>
             

@@ -93,6 +93,20 @@
                 @enderror
             </div><!-- col -->
         </div><!-- row -->
+        <div class="row row-sm mg-t-20">
+            <div class="col-lg">
+                <label for="tender_id">Pemegang Tender</label>
+                <select class="form-control @error('tender_id') is-invalid @enderror" name="tender_id">
+                    <option value="" disabled selected>Pilih Pemegang Tender</option>
+                    @foreach($tenders as $tender)
+                        <option value="{{ $tender->id }}" {{ old('tender_id') == $tender->id ? 'selected' : '' }}>{{ $tender->name }}</option>
+                    @endforeach
+                </select>
+                @error('tender_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div><!-- col -->
+        </div>
         <div class="row row-sm mg-t-20 mb-10">
             <div class="col-lg">
                 <button type="submit" class="btn btn-primary">Tambah Proyek</button>
