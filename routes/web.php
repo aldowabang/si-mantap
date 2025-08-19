@@ -65,6 +65,8 @@ Route::middleware(['checkLogin'])->group(function () {
         Route::get('/tender/view/proyek/{id}',[TenderController::class, 'viewProyekTender'])->name('tender-view-proyek');
         Route::get('/tender/cekk/{id}',[TenderController::class, 'proyekMonitotingTender'])->name('proyek-monitoring-tender');
         Route::get('/tender/cekdoctender/{id}',[TenderController::class, 'cekDokumenTender'])->name('cek-doc-tender');
+
+        Route::get('/tender/laporan/pdf/{id}', [TenderController::class, 'laporanPdfTender'])->name('laporan-pdf-tender');
         //end tender
         // profile admin
         Route::get('/profile',[TenderController::class, 'profileTender'])->name('profile-tender');

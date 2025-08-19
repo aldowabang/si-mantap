@@ -90,7 +90,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam iure illum repellendus veritatis recusandae quibusdam repudiandae, pariatur ex? Saepe ad optio cupiditate numquam dolores beatae illo distinctio velit magnam qui!
                 </p>
             </div>
-            <div class="col-lg-6"><img class="img-fluid" src="lanpage/assets/img/1.jpg" alt="" /></div>
+            <div class="col-lg-6"><img class="img-fluid" src="lanpage/assets/img/kantor.jpg" alt="" /></div>
             </div>
         </div>
 
@@ -104,10 +104,10 @@
                 <h5 class="text-secondary">Kami Melayani !</h5>
                 <p class="fs-7 fw-bold mb-2">Pelayanan ?</p>
                 <div class="d-flex align-items-center mb-3"> <img class="me-sm-4 me-2" src="lanpage/assets/img/manager/tick.png" width="35" alt="tick" />
-                <p class="fw-medium mb-0 text-secondary">-</p>
+                <p class="fw-medium mb-0 text-secondary">Koordinasi</p>
                 </div>
                 <div class="d-flex align-items-center mb-3"> <img class="me-sm-4 me-2" src="lanpage/assets/img/manager/tick.png" width="35" alt="tick" />
-                <p class="fw-medium mb-0 text-secondary">-</p>
+                <p class="fw-medium mb-0 text-secondary">Pengawasan</p>
                 </div>
             </div>
             </div>
@@ -234,13 +234,13 @@
             <div class="col-lg-6">
                 <h2 class="mb-2 fs-7 fw-bold">Alamat - Nusa Tenggara Timur</h2>
                 <p class="mb-4 fw-medium text-secondary">
-                Jalan Frans Seda No. 56, Kelapa Lima, Kota Kupang, Nusa Tenggara Timur, 85228 <br>
-            Telepon: (0380) 1234567 <br>
+                Jl. Unnamed Road Oelamasi, Naibonat, Kec. Kupang Tim., Kabupaten Kupang, Nusa Tenggara Timur <br>
+            Telepon: Telp (0380) 831321 <br>
             Email: 
                 </p>
             </div>
             <div class="col-lg-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.281804257806!2d123.60758691535555!3d-10.171479146103588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcb96f7b34d0f0f%3A0xe5b9c8f9f6717dfb!2sJln.%20Frans%20Seda%2C%20Kelapa%20Lima%2C%20Kota%20Kupang%2C%20Nusa%20Tenggara%20Timur!5e0!3m2!1sen!2sid!4v1696944380913!5m2!1sen!2sid" 
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.2627711734212!2d123.8701451756771!3d-10.077542190031865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569c82808b9801%3A0x92e632cd2d047c6e!2sKantor%20Bupati%20Kupang!5e0!3m2!1sid!2sid!4v1755613629224!5m2!1sid!2sid" 
             width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             </div>
