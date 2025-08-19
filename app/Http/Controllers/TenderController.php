@@ -8,6 +8,7 @@ use App\Models\Proyek;
 use App\Models\Dokument;
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -83,5 +84,21 @@ class TenderController extends Controller
             'dokumentsss' => Dokument::where('monitoring_id', $id)->get(),
         ];
         return view('tender.proyek.cek-dokument-tender', $data);
+    }
+
+    public function laporanPdfTender($id)
+    {
+                $fileName = now()->format('Y-m-d_H-i-s');
+            // Ambil data yang diperlukan untuk laporan
+            $data = [
+                'proyek' => Proyek::findOrFail($id),
+                'monitorings' => Monitoring::where('proyek_id', $id)->get(),
+                'tahaps' => Tahap::where('proyek_id', $id)->get(),
+                'dokuments' => Dokument::where('monitoring_id', $id)->get(),
+                'pengawas' => Auth::user(), // Ambil data pengawas yang sedang login
+            ];
+            // Generate PDF
+            $pdf = Pdf::loadView('tender/pdf', $data);
+            return $pdf->download('laporan-tender-' . $fileName . '.pdf');
     }
 }

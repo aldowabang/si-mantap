@@ -46,7 +46,7 @@
                                 @elseif($tahap->statusTahap === 'approval-pengawas')
                                     <button class="btn btn-secondary btn-sm btn-icon" type="button" disabled style="border-radius: 5px"><i class="typcn typcn-lock-closed"></i></button>
                                 @elseif($tahap->statusTahap === 'approval-admin')
-                                    <button class="btn btn-info btn-sm btn-icon" type="button" disabled style="border-radius: 5px"><i class="typcn typcn-printer"></i></button>
+                                    <a href="{{ route('laporan-pdf-tender', $proyek->id) }}" class="btn btn-info btn-sm btn-icon" type="button" style="border-radius: 5px"><i class="typcn typcn-printer"></i></a>
                                 @endif
                                 
                             </div>
